@@ -1,0 +1,7 @@
+node_modules
+bundle.js*
+.idea
+avatars
+events.stream
+info.json
+npm-debug.log

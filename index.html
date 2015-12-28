@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>Balsamiq Code Evolution</title>
+        <style>
+            body {
+                color: #CCCCCC;
+                text-shadow: 0 0 2px #000000;
+                font-family:Monospace;
+                font-size:13px;
+                text-align:center;
+
+                background-color: #000;
+                margin: 0px;
+                overflow: hidden;
+            }
+
+            #info {
+                position: absolute;
+                top: 0px; width: 100%;
+                padding: 5px;
+                z-index: 100;
+                text-align: left;
+            }
+
+            #flexcontainer {
+                display: flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                z-index: 100;
+                flex-direction: column;
+            }
+
+            #flexbody {
+                flex: 1;
+            }
+
+            #time {
+                padding: 5px;
+                align-self: flex-end;
+            }
+
+            a {
+                color: #0080ff;
+            }
+
+            b { color: lightgreen }
+
+            #stats { position: absolute; top:0; left: 0 }
+            #stats #fps { background: transparent !important }
+            #stats #fps #fpsText { color: #777 !important }
+            #stats #fps #fpsGraph { display: none }
+
+        </style>
+	</head>
+	<body>
+		<div id="info">
+            Balsamiq Code Evolution<br/>
+            FPS: <span id="fps">&nbsp;</span>
+        </div>
+        <dif id="flexcontainer">
+            <div id="flexbody">&nbsp;</div>
+            <div id="time">Time
+            </div>
+        </dif>
+        <div id="container"></div>
+		<script src="bundle.js"></script>
+	</body>
+</html>
