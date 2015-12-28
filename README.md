@@ -31,7 +31,62 @@ How to use
 
 You have to provide a working directory with the following files in it:
 
- 1. `events.json` - where every line is a json representation of a single contribution, like this:
+ 1. `config.json` - global information about projects, authors and git repositories:
+
+    ```
+    {
+      "title": "My repo visualization",
+      "userMap": {
+        "git_author_name_1": "pretty_name_1",
+        "git_author_name_2": "pretty_name_2",
+        "git_author_name_3": "pretty_name_3",
+      },
+      "projects": [
+        {
+          "color": 15924992,
+          "name": "Project 1",
+          "repos": [
+           "my_git_account/my-repo-1",
+           "my_git_account/my-repo-2",
+           "my_git_account/my-repo-3",
+           "my_git_account/my-repo-4"
+          ]
+        },
+        {
+          "color": 16763136,
+          "name": "Project 2",
+          "repos": [
+           "my_git_account/my-repo-5"
+          ]
+        },
+        {
+          "color": 65306,
+          "name": "Project 3",
+          "repos": [
+           "my_git_account/my-repo-6",
+           "my_git_account/my-repo-7"
+          ]
+        }
+      ],
+      "ignoreIfContaining": [
+       ".idea",
+       "node_modules/",
+       "bower_components/"
+      ],
+      "reposDirs": [
+       "/main/path/to/repos",
+       "/another/path/to/repos"
+      ]
+    }
+    ```
+
+    `color` must be expressed in base 10 (due to limitations of the json format).
+
+    Only `title`, `userMap` and `projects` are required for the actual visualization,
+    while the rest of the information are used to generate the events from the git
+    repositories.
+
+ 2. `events.json` - where every line is a json representation of a single contribution, like this:
 
     `{"project": "My Project", "ts": 1232361996000, "author": "Some Name"}`
 
@@ -40,41 +95,13 @@ You have to provide a working directory with the following files in it:
 
     For the above ~5 minutes video the file is about 30 Mb in size.
 
- 2. `info.json` - global information about projects and authors:
-
-    ```
-    {
-      "authors": [
-        "name_1",
-        "name_2",
-        "name_3"
-      ],
-      "projects": [
-        {
-          "color": 15924992,
-          "name": "Project 1"
-        },
-        {
-          "color": 16763136,
-          "name": "Project 2"
-        },
-        {
-          "color": 65306,
-          "name": "Project 3"
-        }
-      ]
-    }
-    ```
-
-    `color` must be expressed in base 10 (due to limitations of the json format).
-
  3. An `avatars` directory containing one image for each author. The name must match
     the one expressed in the above json files and the format must be jpeg (`.jpg` extension, lowercase).
     Ideally, it should be square, with the side length being a power of 2, but I noticed that
     the THREE.js library is able to resize them.
 
 The `events.json` file must be produced offline. In my case I've hacked together
-a Python script that runs `git log` over several repositories, parses the output
+the provided Python script that runs `git log` over several repositories, parses the output
 and aggregates the results.
 
 **Command line**
@@ -96,6 +123,14 @@ If you want to watch the source files, run the following in a separate shell:
 Run the tests with:
 
 `npm test`
+
+Generate the `events.json` file with:
+
+`npm run events <workdir_path> writeEvents`
+
+Update/clone the git repositories with:
+
+`npm run events <workdir_path> updateRepos`
 
 Client-Server Architecture
 ------------

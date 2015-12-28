@@ -28,7 +28,21 @@ if (!fs.lstatSync(workDir).isDirectory()) {
 }
 
 
-var info = JSON.parse(fs.readFileSync(path.join(workDir, 'info.json'), 'utf8'));
+var config = JSON.parse(fs.readFileSync(path.join(workDir, 'config.json'), 'utf8'));
+
+var usernames = [];
+(new Set(Object.keys(config.userMap).map(gitName => config.userMap[gitName]))).forEach(username => usernames.push(username));
+
+function buildInfoObject() {
+    return {
+        title: config.title,
+        authors: usernames,
+        projects: config.projects.map(project => ({
+            name: project.name,
+            color: project.color,
+        })),
+    }
+}
 
 Rx.Observable.fromEvent(wss, 'connection').subscribe(ws => {
     console.log('Client connected');
@@ -51,7 +65,7 @@ Rx.Observable.fromEvent(wss, 'connection').subscribe(ws => {
     });
 });
 
-app.get('/info', (req, res) => res.send(info));
+app.get('/info', (req, res) => res.send(buildInfoObject()));
 
 app.use('/avatars', express.static(path.join(workDir, 'avatars')));
 

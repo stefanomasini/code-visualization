@@ -10,7 +10,9 @@ var socketReadySubject = new Rx.AsyncSubject();
 var socketSubject = Rx.DOM.fromWebSocket('ws://127.0.0.1:4080', null, socketReadySubject);
 
 
-function main({authors, projects}) {
+function main({authors, projects, title}) {
+    document.getElementById('title').innerHTML = title;
+
     var allProjectsDict = {};
     projects.forEach(p => allProjectsDict[p.name] = p);
 
