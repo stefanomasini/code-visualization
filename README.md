@@ -29,7 +29,7 @@ How to use
 
 **Prerequisites**
 
-You have to provide the following files:
+You have to provide a working directory with the following files in it:
 
  1. `events.json` - where every line is a json representation of a single contribution, like this:
 
@@ -85,7 +85,7 @@ Install dependencies with:
 
 Compile the frontend and run the server with:
 
-`npm start`
+`npm start <workdir_path>`
 
 Then point your browser to `http://localhost:4080/` and enjoy the show. :-)
 

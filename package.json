@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "webpack --progress --colors --watch",
     "start": "webpack --progress --colors && node js/server.js",
+    "server": "node js/server.js",
     "test": "./node_modules/mocha/bin/mocha --compilers js:babel-register test/index.js"
   },
   "author": "Stefano Masini <stefano@stefanomasini.com>",
